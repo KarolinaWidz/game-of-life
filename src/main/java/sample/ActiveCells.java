@@ -1,22 +1,21 @@
 package sample;
 
+import lombok.Getter;
 
 import java.util.Map;
 
+@Getter
 class ActiveCells {
 	private Cell center;
-	private Map<Side,Cell> neighbourCells;
+	private Map<Side, CellState> neighbourCells;
+	private int counter;
 
-	public ActiveCells(Cell center, Map<Side, Cell> neighbourCells) {
+	ActiveCells(Cell center, Map<Side, CellState> neighbourCells) {
 		this.center = center;
 		this.neighbourCells = neighbourCells;
+		this.counter=0;
 	}
-
-	public Cell getCenter() {
-		return center;
-	}
-
-	public Map<Side, Cell> getNeighbourCells() {
-		return neighbourCells;
+	void incrementCounter(){
+		this.counter++;
 	}
 }

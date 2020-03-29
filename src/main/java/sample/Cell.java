@@ -1,24 +1,50 @@
 package sample;
 
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import lombok.Getter;
 
-public enum Cell {
-	DEAD(false,Color.WHITE),
-	ALIVE(true,Color.ROYALBLUE);
 
-	private final Color color;
-	private final Boolean state;
+@Getter
+class Cell{
 
-	Cell(Boolean state, Color color){
+	private int size;
+	private CellState state;
+	private Rectangle rectangle;
+	private int x;
+	private int y;
+
+	Cell(CellState state, int x, int y, int size) {
 		this.state = state;
-		this.color = color;
+		this.x = x;
+		this.y = y;
+		this.size= size;
+		this.rectangle = new Rectangle(size,size,state.getColor());
+		this.rectangle.setOnMouseClicked(event -> {
+			if(this.state==CellState.DEAD) setState(CellState.ALIVE);
+			else setState(CellState.DEAD);
+		});
 	}
 
-	public Color getColor() {
-		return color;
+	Cell (Cell copy) {
+		this.state = copy.state;
+		this.x = copy.x;
+		this.y = copy.y;
+		this.size= copy.size;
+		this.rectangle = new Rectangle(size,size,state.getColor());
+		this.rectangle.setOnMouseClicked(event -> {
+			if(this.state==CellState.DEAD) setState(CellState.ALIVE);
+			else setState(CellState.DEAD);
+		});
+
 	}
 
-	public Boolean getState() {
-		return state;
+	void setState(CellState state) {
+		this.state = state;
+		this.rectangle.setFill(state.getColor());
+	}
+
+	void setColor(){
+		this.rectangle.setFill(Color.RED);
 	}
 }
