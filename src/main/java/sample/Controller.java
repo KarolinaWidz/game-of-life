@@ -61,18 +61,22 @@ class Controller {
 			for(int j=0; j<this.gridSize; j++)
 				newCellsMatrix[i][j]=new Cell(this.cellsMatrix[i][j]);
 
-		for(int y=1;y<gridSize-1;y++){
-			for(int x=1;x<gridSize-1;x++){
+		for(int y=0;y<this.gridSize;y++){
+			for(int x=0;x<this.gridSize;x++){
 
+				int prevY = converter(y-1);
+				int prevX = converter(x-1);
+				int nextX = converter(x+1);
+				int nextY = converter(y+1);
 				Map<Side,CellState> neighbourCells = new EnumMap<>(Side.class);
-				neighbourCells.put(Side.TOP_LEFT,this.cellsMatrix[y-1][x-1].getState());
-				neighbourCells.put(Side.LEFT,this.cellsMatrix[y][x-1].getState());
-				neighbourCells.put(Side.DOWN_LEFT,this.cellsMatrix[y+1][x-1].getState());
-				neighbourCells.put(Side.DOWN,this.cellsMatrix[y+1][x].getState());
-				neighbourCells.put(Side.DOWN_RIGHT,this.cellsMatrix[y+1][x+1].getState());
-				neighbourCells.put(Side.RIGHT,this.cellsMatrix[y][x+1].getState());
-				neighbourCells.put(Side.TOP_RIGHT,this.cellsMatrix[y-1][x+1].getState());
-				neighbourCells.put(Side.TOP,this.cellsMatrix[y-1][x].getState());
+				neighbourCells.put(Side.TOP_LEFT,this.cellsMatrix[prevY][prevX].getState());
+				neighbourCells.put(Side.LEFT,this.cellsMatrix[y][prevX].getState());
+				neighbourCells.put(Side.DOWN_LEFT,this.cellsMatrix[nextY][prevX].getState());
+				neighbourCells.put(Side.DOWN,this.cellsMatrix[nextY][x].getState());
+				neighbourCells.put(Side.DOWN_RIGHT,this.cellsMatrix[nextY][nextX].getState());
+				neighbourCells.put(Side.RIGHT,this.cellsMatrix[y][nextX].getState());
+				neighbourCells.put(Side.TOP_RIGHT,this.cellsMatrix[prevY][nextX].getState());
+				neighbourCells.put(Side.TOP,this.cellsMatrix[prevY][x].getState());
 
 				ActiveCells activeCells = new ActiveCells(this.cellsMatrix[y][x],neighbourCells);
 
@@ -94,6 +98,11 @@ class Controller {
 			for(int j=0; j<this.gridSize; j++)
 				this.cellsMatrix[i][j].setState(newCellsMatrix[i][j].getState());
 	}
+
+	private int converter(int x){
+		return x<0?gridSize-1 : x%gridSize;
+	}
+
 }
 
 

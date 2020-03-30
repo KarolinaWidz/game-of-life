@@ -1,9 +1,7 @@
 package sample;
 
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import lombok.Getter;
-
 
 @Getter
 class Cell{
@@ -42,9 +40,5 @@ class Cell{
 	void setState(CellState state) {
 		this.state = state;
 		this.rectangle.setFill(state.getColor());
-	}
-
-	void setColor(){
-		this.rectangle.setFill(Color.RED);
 	}
 }
