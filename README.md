@@ -1,7 +1,7 @@
 # Game of life
 Conway's Game of Life simulation using JavaFX.
 
-![game of life simulation](./simulation.PNG) 
+![game of life simulation](./simulation.png) 
 
 ## Technologies
 - Java 8
