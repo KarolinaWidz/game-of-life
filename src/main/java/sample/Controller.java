@@ -4,8 +4,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.layout.GridPane;
 import lombok.Getter;
 
-import java.util.EnumMap;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Pattern;
 
 @Getter
@@ -15,6 +14,7 @@ class Controller {
 	private int gridSize;
 	private static Board board;
 	private Cell [][] cellsMatrix;
+	private String initialState;
 
 	Controller() {
 		board = Board.getInstance();
@@ -24,10 +24,16 @@ class Controller {
 		board.getTenStepsButton().setOnAction(event -> {
 			for(int i=0;i<10;i++) simulation();
 		});
+		board.getStateCombobox().setOnAction(event -> {
+			setInitialState(board.getStateCombobox().getValue());
+			setInitialCells(this.initialState);
+
+		});
 		board.getSetSizeButton().setOnAction(event -> setSize());
 	}
 
 	private void setSize() {
+		setInitialState(board.getStateCombobox().getValue());
 		setCellSize(board.getGridSizeField().getText());
 		this.cellsMatrix = new Cell[this.gridSize][this.gridSize];
 		board.getCellsGrid().getChildren().clear();
@@ -37,6 +43,7 @@ class Controller {
 				board.getCellsGrid().add(this.cellsMatrix[y][x].getRectangle(),x,y);
 			}
 		}
+		setInitialCells(this.initialState);
 		board.getCellsGrid().setGridLinesVisible(false);
 		board.getCellsGrid().setGridLinesVisible(true);
 	}
@@ -53,6 +60,49 @@ class Controller {
 				alert.show();
 			}
 		}
+	}
+	private void setInitialCells(String state){
+		for(int y = 0; y<this.gridSize ; y++){
+			for(int x = 0; x< this.gridSize; x++){
+				this.cellsMatrix[y][x].setState(CellState.DEAD);
+			}
+		}
+		switch (state){
+			case "Blinker":{
+				this.cellsMatrix[0][1].setState(CellState.ALIVE);
+				this.cellsMatrix[1][1].setState(CellState.ALIVE);
+				this.cellsMatrix[2][1].setState(CellState.ALIVE);
+				break;
+			}
+			case "Beehive":{
+				this.cellsMatrix[0][1].setState(CellState.ALIVE);
+				this.cellsMatrix[1][0].setState(CellState.ALIVE);
+				this.cellsMatrix[2][0].setState(CellState.ALIVE);
+				this.cellsMatrix[1][2].setState(CellState.ALIVE);
+				this.cellsMatrix[2][2].setState(CellState.ALIVE);
+				this.cellsMatrix[3][1].setState(CellState.ALIVE);
+				break;
+			}
+			case "Glider":{
+				this.cellsMatrix[0][1].setState(CellState.ALIVE);
+				this.cellsMatrix[0][2].setState(CellState.ALIVE);
+				this.cellsMatrix[1][0].setState(CellState.ALIVE);
+				this.cellsMatrix[1][1].setState(CellState.ALIVE);
+				this.cellsMatrix[2][2].setState(CellState.ALIVE);
+				break;
+			}
+			case "Random":{
+				Random generator = new Random();
+				for(int y = 0; y<this.gridSize ; y++){
+					for(int x = 0; x< this.gridSize; x++){
+						this.cellsMatrix[y][x].setState(generator.nextInt()%2==1?CellState.ALIVE:CellState.DEAD);
+					}
+				}
+			}
+		}
+	}
+	private void setInitialState(String initialState){
+		this.initialState = initialState;
 	}
 	private void simulation() {
 		Cell [][] newCellsMatrix = new Cell[this.gridSize][this.gridSize];

@@ -36,7 +36,7 @@ class Board {
 
 		//input
 		this.stateCombobox= new ComboBox<>();
-		this.stateCombobox.getItems().addAll("Blinker", "Bee-hive", "Glider", "Random", "Own states");
+		this.stateCombobox.getItems().addAll("Blinker", "Beehive", "Glider", "Random", "Own states");
 		this.stateCombobox.setValue("Blinker");
 		this.gridSizeField = new TextField("20");
 
