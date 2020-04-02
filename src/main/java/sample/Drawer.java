@@ -3,7 +3,7 @@ package sample;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Drawer {
+class Drawer {
 
 	private static final Map<String,InitialStructure> structureMap = new HashMap<>();
 	static{
@@ -12,7 +12,7 @@ public class Drawer {
 		structureMap.put("Glider", new Glider());
 		structureMap.put("Random", new RandomStructure());
 	}
-	public void drawStructure(String structure, Cell [][] cellsMatrix){
+	void drawStructure(String structure, Cell[][] cellsMatrix){
 		structureMap.get(structure).draw(cellsMatrix);
 	}
 }
