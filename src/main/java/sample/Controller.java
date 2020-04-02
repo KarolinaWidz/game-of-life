@@ -123,7 +123,7 @@ class Controller {
 	}
 
 	private int converter(int x){
-		return x<0?gridSize-1 : x%gridSize;
+		return x<0?this.gridSize-1 : x%this.gridSize;
 	}
 
 }

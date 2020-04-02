@@ -29,7 +29,7 @@ class Cell{
 		this.x = copy.x;
 		this.y = copy.y;
 		this.size= copy.size;
-		this.rectangle = new Rectangle(size,size,state.getColor());
+		this.rectangle = new Rectangle(this.size,this.size,this.state.getColor());
 		this.rectangle.setOnMouseClicked(event -> {
 			if(this.state==CellState.DEAD) setState(CellState.ALIVE);
 			else setState(CellState.DEAD);

@@ -48,11 +48,11 @@ class Board {
 		this.stateCombobox.setMaxSize(100,10);
 		this.gridSizeField.setMaxSize(100,10);
 
-		menuGrid.addColumn(0, gridSizeLabel, initialStateLabel, oneStepButton,setSizeButton);
-		menuGrid.addColumn(1, gridSizeField, stateCombobox, tenStepsButton);
+		menuGrid.addColumn(0, gridSizeLabel, initialStateLabel, this.oneStepButton,this.setSizeButton);
+		menuGrid.addColumn(1, this.gridSizeField, this.stateCombobox, this.tenStepsButton);
 
 		this.stageGrid.add(menuGrid, 0, 0);
-		ScrollPane scrollPane = new ScrollPane(cellsGrid);
+		ScrollPane scrollPane = new ScrollPane(this.cellsGrid);
 		this.stageGrid.add(scrollPane, 1, 0);
 	}
 
