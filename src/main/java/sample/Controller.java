@@ -68,25 +68,9 @@ class Controller {
 				this.cellsMatrix[y][x].setState(CellState.DEAD);
 			}
 		}
-
+		if(!state.equals("Own states")){
 		Drawer drawer = new Drawer();
-		switch (state){
-			case "Blinker":{
-				drawer.drawStructure(new Blinker(),this.cellsMatrix);
-				break;
-			}
-			case "Beehive":{
-				drawer.drawStructure(new Beehive(),this.cellsMatrix);
-				break;
-			}
-			case "Glider":{
-				drawer.drawStructure(new Glider(),this.cellsMatrix);
-				break;
-			}
-			case "Random":{
-				drawer.drawStructure(new RandomStructure(),this.cellsMatrix);
-				break;
-			}
+		drawer.drawStructure(state,this.cellsMatrix);
 		}
 	}
 	private void setInitialState(String initialState){
