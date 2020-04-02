@@ -62,48 +62,37 @@ class Controller {
 		}
 	}
 	private void setInitialCells(String state){
+
 		for(int y = 0; y<this.gridSize ; y++){
 			for(int x = 0; x< this.gridSize; x++){
 				this.cellsMatrix[y][x].setState(CellState.DEAD);
 			}
 		}
+
+		Drawer drawer = new Drawer();
 		switch (state){
 			case "Blinker":{
-				this.cellsMatrix[0][1].setState(CellState.ALIVE);
-				this.cellsMatrix[1][1].setState(CellState.ALIVE);
-				this.cellsMatrix[2][1].setState(CellState.ALIVE);
+				drawer.drawStructure(new Blinker(),this.cellsMatrix);
 				break;
 			}
 			case "Beehive":{
-				this.cellsMatrix[0][1].setState(CellState.ALIVE);
-				this.cellsMatrix[1][0].setState(CellState.ALIVE);
-				this.cellsMatrix[2][0].setState(CellState.ALIVE);
-				this.cellsMatrix[1][2].setState(CellState.ALIVE);
-				this.cellsMatrix[2][2].setState(CellState.ALIVE);
-				this.cellsMatrix[3][1].setState(CellState.ALIVE);
+				drawer.drawStructure(new Beehive(),this.cellsMatrix);
 				break;
 			}
 			case "Glider":{
-				this.cellsMatrix[0][1].setState(CellState.ALIVE);
-				this.cellsMatrix[0][2].setState(CellState.ALIVE);
-				this.cellsMatrix[1][0].setState(CellState.ALIVE);
-				this.cellsMatrix[1][1].setState(CellState.ALIVE);
-				this.cellsMatrix[2][2].setState(CellState.ALIVE);
+				drawer.drawStructure(new Glider(),this.cellsMatrix);
 				break;
 			}
 			case "Random":{
-				Random generator = new Random();
-				for(int y = 0; y<this.gridSize ; y++){
-					for(int x = 0; x< this.gridSize; x++){
-						this.cellsMatrix[y][x].setState(generator.nextInt()%2==1?CellState.ALIVE:CellState.DEAD);
-					}
-				}
+				drawer.drawStructure(new RandomStructure(),this.cellsMatrix);
+				break;
 			}
 		}
 	}
 	private void setInitialState(String initialState){
 		this.initialState = initialState;
 	}
+
 	private void simulation() {
 		Cell [][] newCellsMatrix = new Cell[this.gridSize][this.gridSize];
 
